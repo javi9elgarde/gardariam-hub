@@ -4,46 +4,71 @@ import { motion } from "framer-motion";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-interface CardProps {
+interface PortalProps {
   emoji: string;
   title: string;
-  description: string;
   href?: string;
   comingSoon?: boolean;
 }
 
-function HubCard({ emoji, title, description, href, comingSoon }: CardProps) {
-  const content = (
-    <>
-      <span className="text-4xl">{emoji}</span>
-      <h2 className="font-display mt-4 text-lg font-bold uppercase tracking-[0.14em] text-imperial-gold-bright">
+function Portal({ emoji, title, href, comingSoon }: PortalProps) {
+  const circle = (
+    <div
+      className="relative flex items-center justify-center rounded-full"
+      style={{
+        width: "clamp(110px, 16vw, 150px)",
+        height: "clamp(110px, 16vw, 150px)",
+        background:
+          "radial-gradient(circle at 35% 30%, rgba(200,144,40,0.16), rgba(7,11,23,0.95))",
+        border: "2px solid rgba(200,144,40,0.45)",
+        boxShadow:
+          "0 0 0 5px rgba(7,11,23,0.9), 0 0 30px rgba(200,144,40,0.15), inset 0 0 24px rgba(0,0,0,0.6)",
+      }}
+    >
+      <span className="text-4xl sm:text-5xl">{emoji}</span>
+    </div>
+  );
+
+  return (
+    <div className="relative z-10 flex flex-col items-center">
+      {href && !comingSoon ? (
+        <motion.a
+          href={href}
+          whileHover={{ scale: 1.06, y: -4 }}
+          whileTap={{ scale: 0.97 }}
+          className="cursor-pointer"
+        >
+          {circle}
+        </motion.a>
+      ) : (
+        <div className="opacity-50">{circle}</div>
+      )}
+      <span className="font-display mt-4 text-xs font-bold uppercase tracking-[0.18em] text-imperial-gold-bright sm:text-sm">
         {title}
-      </h2>
-      <p className="mt-2 text-sm text-parchment-dim">{description}</p>
+      </span>
       {comingSoon && (
-        <span className="font-display mt-4 inline-block rounded-full border border-imperial-gold/30 px-3 py-1 text-[0.6rem] uppercase tracking-[0.16em] text-parchment-faint">
+        <span className="font-display mt-1.5 inline-block rounded-full border border-imperial-gold/25 px-2.5 py-0.5 text-[0.52rem] uppercase tracking-[0.14em] text-parchment-faint">
           Próximamente
         </span>
       )}
-    </>
+    </div>
   );
+}
 
-  const className =
-    "glass-panel flex w-64 flex-col items-center rounded-2xl px-8 py-10 text-center transition-all";
-
-  if (comingSoon || !href) {
-    return <div className={`${className} opacity-60`}>{content}</div>;
-  }
-
+function Connector({ delay }: { delay: number }) {
   return (
-    <motion.a
-      href={href}
-      whileHover={{ scale: 1.04, y: -4 }}
-      whileTap={{ scale: 0.98 }}
-      className={`${className} cursor-pointer hover:border-imperial-gold/50 hover:shadow-[0_0_40px_rgba(200,144,40,0.18)]`}
-    >
-      {content}
-    </motion.a>
+    <motion.div
+      initial={{ scaleX: 0, opacity: 0 }}
+      animate={{ scaleX: 1, opacity: 1 }}
+      transition={{ duration: 0.9, delay, ease: EASE }}
+      className="relative z-0 h-px flex-1"
+      style={{
+        minWidth: "clamp(24px, 6vw, 70px)",
+        background:
+          "linear-gradient(to right, rgba(200,144,40,0.05), rgba(200,144,40,0.55), rgba(200,144,40,0.05))",
+        transformOrigin: "center",
+      }}
+    />
   );
 }
 
@@ -66,64 +91,49 @@ export default function Home() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.3, ease: EASE }}
-        className="font-display text-gold-glow relative z-10 text-3xl font-bold tracking-[0.3em] text-imperial-gold-bright uppercase sm:text-5xl"
+        className="font-display text-gold-glow relative z-10 text-2xl font-bold tracking-[0.3em] text-imperial-gold-bright uppercase sm:text-4xl"
       >
         Imperio
       </motion.h1>
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.85, y: 12 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 1.3, delay: 0.6, ease: EASE }}
-        className="relative z-10 mt-2"
-        style={{
-          width: "clamp(260px, 36vw, 440px)",
-          filter: "drop-shadow(0 0 50px rgba(200,144,40,0.25))",
-        }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/logo.png"
-          alt="Gardariam"
-          style={{ width: "100%", height: "auto", display: "block" }}
-        />
-      </motion.div>
-
       <motion.p
-        initial={{ opacity: 0, y: 16 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1, ease: EASE }}
-        className="font-display relative z-10 mt-6 max-w-xl text-sm tracking-[0.08em] text-parchment-dim italic sm:text-lg"
+        transition={{ duration: 1, delay: 0.5, ease: EASE }}
+        className="font-display relative z-10 mt-3 max-w-xl text-xs tracking-[0.08em] text-parchment-dim italic sm:text-base"
       >
         &ldquo;Nuestro fuego, nuestro amor&rdquo;
       </motion.p>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1.3 }}
-        className="imperial-divider relative z-10 mt-8 w-40 sm:w-56"
-      />
+      <div className="relative z-10 mt-12 flex w-full max-w-3xl items-center justify-center sm:mt-16">
+        <Portal emoji="🗺️" title="Viajes" href="https://viajes.gardariam.com" />
+        <Connector delay={0.9} />
 
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1.5, ease: EASE }}
-        className="relative z-10 mt-12 flex flex-wrap items-center justify-center gap-6"
-      >
-        <HubCard
-          emoji="🗺️"
-          title="Viajes"
-          description="El mapa de cada país que hemos conquistado juntos."
-          href="https://viajes.gardariam.com"
-        />
-        <HubCard
-          emoji="🍳"
-          title="Cocina"
-          description="El recetario de nuestras creaciones en la cocina."
-          comingSoon
-        />
-      </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, delay: 0.7, ease: EASE }}
+          className="relative z-10 flex flex-shrink-0 items-center justify-center rounded-full"
+          style={{
+            width: "clamp(160px, 24vw, 220px)",
+            height: "clamp(160px, 24vw, 220px)",
+            background: "radial-gradient(circle at 40% 30%, #131c34, #070b17)",
+            border: "2px solid rgba(200,144,40,0.55)",
+            boxShadow:
+              "0 0 0 6px rgba(7,11,23,0.9), 0 0 50px rgba(200,144,40,0.22), inset 0 0 30px rgba(0,0,0,0.6)",
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo.png"
+            alt="Gardariam"
+            style={{ width: "72%", height: "72%", objectFit: "contain", display: "block" }}
+          />
+        </motion.div>
+
+        <Connector delay={0.9} />
+        <Portal emoji="🍳" title="Cocina" comingSoon />
+      </div>
     </main>
   );
 }
