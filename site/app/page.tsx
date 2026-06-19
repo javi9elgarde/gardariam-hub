@@ -12,37 +12,60 @@ interface PortalProps {
 }
 
 function Portal({ emoji, title, href, comingSoon }: PortalProps) {
-  const circle = (
-    <div
-      className="relative flex items-center justify-center rounded-full"
-      style={{
-        width: "clamp(110px, 16vw, 150px)",
-        height: "clamp(110px, 16vw, 150px)",
-        background:
-          "radial-gradient(circle at 35% 30%, rgba(200,144,40,0.16), rgba(7,11,23,0.95))",
-        border: "2px solid rgba(200,144,40,0.45)",
-        boxShadow:
-          "0 0 0 5px rgba(7,11,23,0.9), 0 0 30px rgba(200,144,40,0.15), inset 0 0 24px rgba(0,0,0,0.6)",
-      }}
-    >
-      <span className="text-4xl sm:text-5xl">{emoji}</span>
-    </div>
-  );
+  const disabled = comingSoon || !href;
 
   return (
     <div className="relative z-10 flex flex-col items-center">
-      {href && !comingSoon ? (
-        <motion.a
-          href={href}
-          whileHover={{ scale: 1.06, y: -4 }}
-          whileTap={{ scale: 0.97 }}
-          className="cursor-pointer"
+      <motion.div
+        className="relative flex items-center justify-center rounded-full"
+        style={{
+          width: "clamp(110px, 16vw, 150px)",
+          height: "clamp(110px, 16vw, 150px)",
+          background:
+            "radial-gradient(circle at 35% 30%, rgba(200,144,40,0.16), rgba(7,11,23,0.95))",
+          border: "2px solid rgba(200,144,40,0.45)",
+        }}
+        animate={
+          disabled
+            ? {}
+            : {
+                boxShadow: [
+                  "0 0 0 5px rgba(7,11,23,0.9), 0 0 22px rgba(200,144,40,0.18), inset 0 0 24px rgba(0,0,0,0.6)",
+                  "0 0 0 5px rgba(7,11,23,0.9), 0 0 38px rgba(200,144,40,0.4), inset 0 0 24px rgba(0,0,0,0.6)",
+                  "0 0 0 5px rgba(7,11,23,0.9), 0 0 22px rgba(200,144,40,0.18), inset 0 0 24px rgba(0,0,0,0.6)",
+                ],
+              }
+        }
+        transition={
+          disabled
+            ? {}
+            : { duration: 3.2, repeat: Infinity, ease: "easeInOut" }
+        }
+        whileHover={
+          disabled
+            ? {}
+            : {
+                scale: 1.12,
+                y: -6,
+                boxShadow:
+                  "0 0 0 5px rgba(7,11,23,0.9), 0 0 55px rgba(240,197,66,0.65), inset 0 0 24px rgba(0,0,0,0.5)",
+                borderColor: "rgba(240,197,66,0.9)",
+              }
+        }
+        whileTap={disabled ? {} : { scale: 0.96 }}
+      >
+        <motion.span
+          className="text-4xl sm:text-5xl"
+          style={{ opacity: disabled ? 0.45 : 1 }}
+          whileHover={disabled ? {} : { rotate: [0, -8, 8, -4, 0], scale: 1.15 }}
+          transition={{ duration: 0.5 }}
         >
-          {circle}
-        </motion.a>
-      ) : (
-        <div className="opacity-50">{circle}</div>
-      )}
+          {emoji}
+        </motion.span>
+        {href && !disabled && (
+          <a href={href} className="absolute inset-0 rounded-full" aria-label={title} />
+        )}
+      </motion.div>
       <span className="font-display mt-4 text-xs font-bold uppercase tracking-[0.18em] text-imperial-gold-bright sm:text-sm">
         {title}
       </span>
@@ -97,8 +120,8 @@ export default function Home() {
           transition={{ duration: 1.2, delay: 0.3, ease: EASE }}
           className="relative z-10 flex-shrink-0"
           style={{
-            width: "clamp(220px, 32vw, 380px)",
-            filter: "drop-shadow(0 0 50px rgba(200,144,40,0.25))",
+            width: "clamp(300px, 46vw, 600px)",
+            filter: "drop-shadow(0 0 60px rgba(200,144,40,0.3))",
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
