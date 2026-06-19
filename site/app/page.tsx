@@ -87,51 +87,29 @@ export default function Home() {
         style={{ boxShadow: "inset 0 0 220px 60px rgba(7,11,23,0.95)" }}
       />
 
-      <motion.h1
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.3, ease: EASE }}
-        className="font-display text-gold-glow relative z-10 text-2xl font-bold tracking-[0.3em] text-imperial-gold-bright uppercase sm:text-4xl"
-      >
-        Imperio
-      </motion.h1>
-
-      <motion.p
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5, ease: EASE }}
-        className="font-display relative z-10 mt-3 max-w-xl text-xs tracking-[0.08em] text-parchment-dim italic sm:text-base"
-      >
-        &ldquo;Nuestro fuego, nuestro amor&rdquo;
-      </motion.p>
-
-      <div className="relative z-10 mt-12 flex w-full max-w-3xl items-center justify-center sm:mt-16">
+      <div className="relative z-10 flex w-full max-w-3xl items-center justify-center">
         <Portal emoji="🗺️" title="Viajes" href="https://viajes.gardariam.com" />
-        <Connector delay={0.9} />
+        <Connector delay={0.6} />
 
         <motion.div
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: 0.7, ease: EASE }}
-          className="relative z-10 flex flex-shrink-0 items-center justify-center rounded-full"
+          transition={{ duration: 1.2, delay: 0.3, ease: EASE }}
+          className="relative z-10 flex-shrink-0"
           style={{
-            width: "clamp(160px, 24vw, 220px)",
-            height: "clamp(160px, 24vw, 220px)",
-            background: "radial-gradient(circle at 40% 30%, #131c34, #070b17)",
-            border: "2px solid rgba(200,144,40,0.55)",
-            boxShadow:
-              "0 0 0 6px rgba(7,11,23,0.9), 0 0 50px rgba(200,144,40,0.22), inset 0 0 30px rgba(0,0,0,0.6)",
+            width: "clamp(220px, 32vw, 380px)",
+            filter: "drop-shadow(0 0 50px rgba(200,144,40,0.25))",
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.png"
             alt="Gardariam"
-            style={{ width: "72%", height: "72%", objectFit: "contain", display: "block" }}
+            style={{ width: "100%", height: "auto", display: "block" }}
           />
         </motion.div>
 
-        <Connector delay={0.9} />
+        <Connector delay={0.6} />
         <Portal emoji="🍳" title="Cocina" comingSoon />
       </div>
     </main>
