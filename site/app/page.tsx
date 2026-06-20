@@ -133,7 +133,7 @@ export default function Home() {
         </motion.div>
 
         <Connector delay={0.6} />
-        <Portal emoji="🍳" title="Cocina" comingSoon />
+        <Portal emoji="🍳" title="Cocina" href="https://cocina.gardariam.com" />
       </div>
     </main>
   );
