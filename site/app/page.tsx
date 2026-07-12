@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const VID_W = 1280;
-const VID_H = 704;
+const VID_W = 1964;
+const VID_H = 1080;
 
 interface Hotspot {
   href: string;
@@ -46,8 +46,8 @@ export default function Home() {
         className="relative z-10"
         style={{
           aspectRatio: `${VID_W} / ${VID_H}`,
-          width: "min(100vw, calc(100vh * (1280 / 704)))",
-          height: "min(100vh, calc(100vw * (704 / 1280)))",
+          width: "min(100vw, calc(100vh * (1964 / 1080)))",
+          height: "min(100vh, calc(100vw * (1080 / 1964)))",
           boxShadow: "0 0 120px 20px rgba(0,0,0,0.6)",
         }}
       >
