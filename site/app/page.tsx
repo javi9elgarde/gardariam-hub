@@ -8,7 +8,6 @@ interface Portal {
 
 const VIAJES: Portal = { href: "https://viajes.gardariam.com", label: "Viajes", emoji: "🗺️" };
 const COCINA: Portal = { href: "https://cocina.gardariam.com", label: "Cocina", emoji: "🍳" };
-const PORTALS = [VIAJES, COCINA];
 
 export default function Home() {
   return (
@@ -40,15 +39,37 @@ export default function Home() {
         </a>
       </div>
 
-      {/* Navegación móvil (solo en vertical): botones grandes */}
-      <nav className="hub-mobile-nav">
-        {PORTALS.map((p) => (
-          <a key={p.label} href={p.href} className="hub-mobile-btn">
-            <span className="hub-mobile-emoji">{p.emoji}</span>
-            <span className="hub-mobile-label">{p.label}</span>
-          </a>
-        ))}
-      </nav>
+      {/* Móvil (vertical): dos paneles apilados a pantalla completa */}
+      <div className="hub-tiles">
+        <a href={VIAJES.href} aria-label={VIAJES.label} className="hub-tile hub-tile-viajes">
+          <video
+            className="hub-tile-video"
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="/hub-poster.jpg"
+            preload="auto"
+          >
+            <source src="/hub-loop.mp4" type="video/mp4" />
+          </video>
+          <span className="hub-tile-glow" />
+        </a>
+        <a href={COCINA.href} aria-label={COCINA.label} className="hub-tile hub-tile-cocina">
+          <video
+            className="hub-tile-video"
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="/hub-poster.jpg"
+            preload="auto"
+          >
+            <source src="/hub-loop.mp4" type="video/mp4" />
+          </video>
+          <span className="hub-tile-glow" />
+        </a>
+      </div>
     </main>
   );
 }

@@ -179,8 +179,54 @@ body {
 .hub-side:focus-visible .hub-side-glow {
   opacity: 1;
 }
-.hub-mobile-nav {
+
+/* Paneles apilados para móvil (ocultos en escritorio) */
+.hub-tiles {
   display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  flex-direction: column;
+}
+.hub-tile {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  display: block;
+  -webkit-tap-highlight-color: transparent;
+}
+.hub-tile-cocina {
+  border-top: 2px solid rgba(200, 144, 40, 0.55);
+}
+.hub-tile-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+.hub-tile-viajes .hub-tile-video {
+  object-position: 6% 45%;
+}
+.hub-tile-cocina .hub-tile-video {
+  object-position: 92% 45%;
+}
+.hub-tile-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: radial-gradient(
+    circle at 50% 55%,
+    rgba(255, 205, 80, 0.3),
+    transparent 70%
+  );
+  transition: opacity 0.3s ease;
+}
+.hub-tile:active .hub-tile-glow {
+  opacity: 1;
 }
 
 @keyframes hub-fade {
@@ -192,77 +238,12 @@ body {
   }
 }
 
-/* Portrait / móvil: escena contenida arriba + botones grandes debajo */
+/* Portrait / móvil: dos paneles apilados a pantalla completa */
 @media (orientation: portrait) {
-  .hub-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(1.5rem, 5vh, 3rem);
-    padding: 1.25rem;
-  }
   .hub-scene {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1964 / 1080;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.55);
-    border: 1px solid rgba(200, 144, 40, 0.25);
-  }
-  .hub-video {
-    object-fit: cover;
-  }
-  .hub-side {
     display: none;
   }
-  .hub-mobile-nav {
+  .hub-tiles {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 100%;
-    max-width: 430px;
-    z-index: 10;
-  }
-  .hub-mobile-btn {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.05rem 1.4rem;
-    border-radius: 16px;
-    border: 1.5px solid rgba(200, 144, 40, 0.5);
-    background: rgba(13, 19, 34, 0.85);
-    box-shadow:
-      0 0 26px rgba(0, 0, 0, 0.5),
-      inset 0 0 22px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(6px);
-    transition:
-      border-color 0.2s ease,
-      box-shadow 0.2s ease,
-      transform 0.12s ease;
-  }
-  .hub-mobile-btn:active {
-    transform: scale(0.97);
-    border-color: rgba(240, 197, 66, 0.9);
-    box-shadow: 0 0 34px rgba(240, 197, 66, 0.4);
-  }
-  .hub-mobile-emoji {
-    font-size: 1.7rem;
-    line-height: 1;
-    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8));
-  }
-  .hub-mobile-label {
-    font-family: var(--font-display), serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    font-size: 1.05rem;
-    color: var(--color-imperial-gold-bright);
-    text-shadow: 0 0 18px rgba(200, 144, 40, 0.4);
   }
 }
