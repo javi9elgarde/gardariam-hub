@@ -88,3 +88,137 @@ body {
     transparent
   );
 }
+
+/* ===== Hub: escena de vídeo a pantalla completa ===== */
+.hub-main {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-imperial-charcoal);
+}
+.hub-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url(/hub-poster.jpg);
+  background-size: cover;
+  background-position: center;
+  filter: blur(40px) brightness(0.5);
+  transform: scale(1.18);
+}
+.hub-tint {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 11, 23, 0.35);
+}
+
+/* Landscape / escritorio: el vídeo llena TODA la pantalla (cover) */
+.hub-scene {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max(100vw, calc(100vh * 1964 / 1080));
+  height: max(100vh, calc(100vw * 1080 / 1964));
+  animation: hub-fade 1.1s var(--ease-imperial) both;
+}
+.hub-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+.hub-hotspot {
+  position: absolute;
+  border-radius: 12px;
+}
+.hub-mobile-nav {
+  display: none;
+}
+
+@keyframes hub-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Portrait / móvil: escena contenida arriba + botones grandes debajo */
+@media (orientation: portrait) {
+  .hub-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1.5rem, 5vh, 3rem);
+    padding: 1.25rem;
+  }
+  .hub-scene {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1964 / 1080;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(200, 144, 40, 0.25);
+  }
+  .hub-video {
+    object-fit: cover;
+  }
+  .hub-hotspot {
+    display: none;
+  }
+  .hub-mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 430px;
+    z-index: 10;
+  }
+  .hub-mobile-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.05rem 1.4rem;
+    border-radius: 16px;
+    border: 1.5px solid rgba(200, 144, 40, 0.5);
+    background: rgba(13, 19, 34, 0.85);
+    box-shadow:
+      0 0 26px rgba(0, 0, 0, 0.5),
+      inset 0 0 22px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.12s ease;
+  }
+  .hub-mobile-btn:active {
+    transform: scale(0.97);
+    border-color: rgba(240, 197, 66, 0.9);
+    box-shadow: 0 0 34px rgba(240, 197, 66, 0.4);
+  }
+  .hub-mobile-emoji {
+    font-size: 1.7rem;
+    line-height: 1;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8));
+  }
+  .hub-mobile-label {
+    font-family: var(--font-display), serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 1.05rem;
+    color: var(--color-imperial-gold-bright);
+    text-shadow: 0 0 18px rgba(200, 144, 40, 0.4);
+  }
+}
