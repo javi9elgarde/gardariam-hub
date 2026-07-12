@@ -131,9 +131,53 @@ body {
   object-fit: cover;
   user-select: none;
 }
-.hub-hotspot {
+/* Mitades clicables: al pasar por encima se ILUMINA ese lado */
+.hub-side {
   position: absolute;
-  border-radius: 12px;
+  top: 0;
+  height: 100%;
+  z-index: 5;
+  display: block;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.hub-side-left {
+  left: 0;
+  width: 48%;
+}
+.hub-side-right {
+  right: 0;
+  width: 48%;
+}
+.hub-side-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-imperial);
+  /* aclara el vídeo de debajo de forma fiable en cualquier navegador */
+  mix-blend-mode: screen;
+  /* extra de brillo/saturación donde esté soportado */
+  backdrop-filter: brightness(1.12) saturate(1.1);
+  -webkit-backdrop-filter: brightness(1.12) saturate(1.1);
+  pointer-events: none;
+}
+.hub-side-left .hub-side-glow {
+  background: linear-gradient(
+    to left,
+    rgba(255, 208, 90, 0) 35%,
+    rgba(255, 205, 80, 0.34) 100%
+  );
+}
+.hub-side-right .hub-side-glow {
+  background: linear-gradient(
+    to right,
+    rgba(255, 208, 90, 0) 35%,
+    rgba(255, 205, 80, 0.34) 100%
+  );
+}
+.hub-side:hover .hub-side-glow,
+.hub-side:focus-visible .hub-side-glow {
+  opacity: 1;
 }
 .hub-mobile-nav {
   display: none;
@@ -174,7 +218,7 @@ body {
   .hub-video {
     object-fit: cover;
   }
-  .hub-hotspot {
+  .hub-side {
     display: none;
   }
   .hub-mobile-nav {
