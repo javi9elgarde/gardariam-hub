@@ -4,13 +4,13 @@ import { motion } from "framer-motion";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const IMG_W = 1672;
-const IMG_H = 941;
+const VID_W = 1280;
+const VID_H = 704;
 
 interface Hotspot {
   href: string;
   label: string;
-  /* posición en % relativa a la imagen */
+  /* posición en % relativa a la escena */
   left: number;
   top: number;
   width: number;
@@ -18,8 +18,8 @@ interface Hotspot {
 }
 
 const HOTSPOTS: Hotspot[] = [
-  { href: "https://viajes.gardariam.com", label: "Viajes", left: 10.5, top: 79.5, width: 25, height: 15 },
-  { href: "https://cocina.gardariam.com", label: "Cocina", left: 63.5, top: 79.5, width: 26, height: 15 },
+  { href: "https://viajes.gardariam.com", label: "Viajes", left: 10.5, top: 74.5, width: 28, height: 15 },
+  { href: "https://cocina.gardariam.com", label: "Cocina", left: 58, top: 74.5, width: 22, height: 15 },
 ];
 
 export default function Home() {
@@ -29,7 +29,7 @@ export default function Home() {
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: "url(/fondofantasiahub.png)",
+          backgroundImage: "url(/hub-poster.jpg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           filter: "blur(38px) brightness(0.5)",
@@ -38,26 +38,30 @@ export default function Home() {
       />
       <div className="absolute inset-0 bg-imperial-charcoal/35" />
 
-      {/* Escena principal, conserva su proporción y encaja en la pantalla */}
+      {/* Escena principal (vídeo en bucle), conserva su proporción y encaja en pantalla */}
       <motion.div
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.1, ease: EASE }}
         className="relative z-10"
         style={{
-          aspectRatio: `${IMG_W} / ${IMG_H}`,
-          width: "min(100vw, calc(100vh * (1672 / 941)))",
-          height: "min(100vh, calc(100vw * (941 / 1672)))",
+          aspectRatio: `${VID_W} / ${VID_H}`,
+          width: "min(100vw, calc(100vh * (1280 / 704)))",
+          height: "min(100vh, calc(100vw * (704 / 1280)))",
           boxShadow: "0 0 120px 20px rgba(0,0,0,0.6)",
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/fondofantasiahub.png"
-          alt="Gardariam — Viajes y Cocina"
-          className="block h-full w-full select-none"
-          draggable={false}
-        />
+        <video
+          className="block h-full w-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/hub-poster.jpg"
+          preload="auto"
+        >
+          <source src="/hub-loop.mp4" type="video/mp4" />
+        </video>
 
         {/* Zonas clicables sobre los carteles */}
         {HOTSPOTS.map((h) => (
