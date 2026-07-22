@@ -39,35 +39,24 @@ export default function Home() {
         </a>
       </div>
 
-      {/* Móvil (vertical): dos paneles apilados a pantalla completa */}
-      <div className="hub-tiles">
-        <a href={VIAJES.href} aria-label={VIAJES.label} className="hub-tile hub-tile-viajes">
-          <video
-            className="hub-tile-video"
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster="/hub-poster.jpg"
-            preload="auto"
-          >
-            <source src="/hub-loop.mp4" type="video/mp4" />
-          </video>
-          <span className="hub-tile-glow" />
+      {/* Móvil (vertical): vídeo 9:16 a pantalla completa con dos zonas tocables */}
+      <div className="hub-mobile">
+        <video
+          className="hub-mobile-video"
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/hub-poster-mobile.jpg"
+          preload="auto"
+        >
+          <source src="/hub-loop-mobile.mp4" type="video/mp4" />
+        </video>
+        <a href={VIAJES.href} aria-label={VIAJES.label} className="hub-mzone hub-mzone-top">
+          <span className="hub-mzone-glow" />
         </a>
-        <a href={COCINA.href} aria-label={COCINA.label} className="hub-tile hub-tile-cocina">
-          <video
-            className="hub-tile-video"
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster="/hub-poster.jpg"
-            preload="auto"
-          >
-            <source src="/hub-loop.mp4" type="video/mp4" />
-          </video>
-          <span className="hub-tile-glow" />
+        <a href={COCINA.href} aria-label={COCINA.label} className="hub-mzone hub-mzone-bottom">
+          <span className="hub-mzone-glow" />
         </a>
       </div>
     </main>

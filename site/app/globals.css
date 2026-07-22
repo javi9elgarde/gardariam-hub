@@ -180,25 +180,15 @@ body {
   opacity: 1;
 }
 
-/* Paneles apilados para móvil (ocultos en escritorio) */
-.hub-tiles {
+/* Móvil: vídeo vertical a pantalla completa con dos zonas tocables
+   (oculto en escritorio) */
+.hub-mobile {
   display: none;
   position: absolute;
   inset: 0;
   z-index: 10;
-  flex-direction: column;
 }
-.hub-tile {
-  position: relative;
-  flex: 1;
-  overflow: hidden;
-  display: block;
-  -webkit-tap-highlight-color: transparent;
-}
-.hub-tile-cocina {
-  border-top: 2px solid rgba(200, 144, 40, 0.55);
-}
-.hub-tile-video {
+.hub-mobile-video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -206,26 +196,44 @@ body {
   object-fit: cover;
   user-select: none;
 }
-.hub-tile-viajes .hub-tile-video {
-  object-position: 6% 45%;
+.hub-mzone {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  display: block;
+  -webkit-tap-highlight-color: transparent;
 }
-.hub-tile-cocina .hub-tile-video {
-  object-position: 92% 45%;
+.hub-mzone-top {
+  top: 0;
+  height: 49%;
 }
-.hub-tile-glow {
+.hub-mzone-bottom {
+  top: 49%;
+  height: 51%;
+}
+.hub-mzone-glow {
   position: absolute;
   inset: 0;
   opacity: 0;
   pointer-events: none;
   mix-blend-mode: screen;
-  background: radial-gradient(
-    circle at 50% 55%,
-    rgba(255, 205, 80, 0.3),
-    transparent 70%
-  );
   transition: opacity 0.3s ease;
 }
-.hub-tile:active .hub-tile-glow {
+.hub-mzone-top .hub-mzone-glow {
+  background: linear-gradient(
+    to top,
+    rgba(255, 205, 80, 0) 45%,
+    rgba(255, 205, 80, 0.28) 100%
+  );
+}
+.hub-mzone-bottom .hub-mzone-glow {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 205, 80, 0) 45%,
+    rgba(255, 205, 80, 0.28) 100%
+  );
+}
+.hub-mzone:active .hub-mzone-glow {
   opacity: 1;
 }
 
@@ -238,12 +246,12 @@ body {
   }
 }
 
-/* Portrait / móvil: dos paneles apilados a pantalla completa */
+/* Portrait / móvil: vídeo vertical a pantalla completa */
 @media (orientation: portrait) {
   .hub-scene {
     display: none;
   }
-  .hub-tiles {
-    display: flex;
+  .hub-mobile {
+    display: block;
   }
 }
