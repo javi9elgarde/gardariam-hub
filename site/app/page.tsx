@@ -1,5 +1,7 @@
 "use client";
 
+import HubVideo from "@/components/HubVideo";
+
 interface Portal {
   href: string;
   label: string;
@@ -18,17 +20,11 @@ export default function Home() {
 
       {/* Escena principal: vídeo en bucle a pantalla completa (cover) */}
       <div className="hub-scene">
-        <video
+        <HubVideo
           className="hub-video"
-          autoPlay
-          loop
-          muted
-          playsInline
+          src="/hub-loop.mp4"
           poster="/hub-poster.jpg"
-          preload="auto"
-        >
-          <source src="/hub-loop.mp4" type="video/mp4" />
-        </video>
+        />
 
         {/* Mitades clicables: al pasar por encima se ilumina ese lado */}
         <a href={VIAJES.href} aria-label={VIAJES.label} className="hub-side hub-side-left">
@@ -41,17 +37,11 @@ export default function Home() {
 
       {/* Móvil (vertical): vídeo 9:16 a pantalla completa con dos zonas tocables */}
       <div className="hub-mobile">
-        <video
+        <HubVideo
           className="hub-mobile-video"
-          autoPlay
-          loop
-          muted
-          playsInline
+          src="/hub-loop-mobile.mp4"
           poster="/hub-poster-mobile.jpg"
-          preload="auto"
-        >
-          <source src="/hub-loop-mobile.mp4" type="video/mp4" />
-        </video>
+        />
         <a href={VIAJES.href} aria-label={VIAJES.label} className="hub-mzone hub-mzone-top">
           <span className="hub-mzone-glow" />
         </a>
